@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+            .checklist-item:hover {
+                background: #e9ecef;
+                transform: translateX(5px);
+            }
+
+            .checklist-item input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+                accent-color: #667eea;
+                margin-right: 15px;
+                flex-shrink: 0;
+            }
+
+            .checklist-item label {
+                cursor: pointer;
+                flex-grow: 1;
+                font-size: 16px;
+                color: #333;
+                transition: all 0.3s ease;
+            }
+
+            .checklist-item input[type="checkbox"]:checked + label {
+                color: #999;
+                text-decoration: line-through;
+            }
+
+        .progress {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Gaming Checklist</h1>
+        <ul class="checklist" id="checklist">
+            <li class="checklist-item">
+                <input type="checkbox" id="item1">
+                <label for="item1">Valo B2B 3h</label>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" id="item2">
+                <label for="item2">LoL B3B 5h</label>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" id="item3">
+                <label for="item3">Paladins B3B 2h</label>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" id="item4">
+                <label for="item4">Hell let Loose 1 W 2h</label>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" id="item5">
+                <label for="item5">Rainbow B2B 4h</label>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" id="item6">
+                <label for="item6">Minecraft Enderdrachen ohne sterben 3h</label>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" id="item7">
+                <label for="item7">Are You There Yet 5h</label>
+            </li>
+            <li class="checklist-item">
+                <input type="checkbox" id="item8">
+                <label for="item8">Fall Guys 1 Win 2h</label>
+            </li>
+        </ul>
+
+        <div class="progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="completedCount">0</span> / <span id="totalCount">8</span> abgehakt
+            </div>
+        </div>
+    </div>
+
+    <script>const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+        const progressFill = document.getElementById('progressFill');
+        const completedCount = document.getElementById('completedCount');
+        const totalCount = document.getElementById('totalCount');
+
+        function updateProgress() {
+            const checked = document.querySelectorAll('.checklist input[type="checkbox"]:checked').length;
+            const total = checkboxes.length;
+            const percentage = (checked / total) * 100;
+
+            progressFill.style.width = percentage + '%';
+            completedCount.textContent = checked;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgress);
+        });
+
+        // LocalStorage für persistente Daten
+        checkboxes.forEach((checkbox, index) => {
+            checkbox.checked = localStorage.getItem(`item-${index}`) === 'true';
+        });
+
+        checkboxes.forEach((checkbox, index) => {
+            checkbox.addEventListener('change', () => {
+                localStorage.setItem(`item-${index}`, checkbox.checked);
+                updateProgress();
+            });
+        });
+
+        updateProgress();</script>
+</body>
+</html>
