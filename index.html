@@ -41,6 +41,139 @@
             background-clip: text;
         }
 
+        .header {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .settings-btn {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .settings-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .settings-modal.active {
+            display: flex;
+        }
+
+        .settings-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 90%;
+        }
+
+        .settings-content h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .settings-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-item label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .settings-item input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .settings-item input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .settings-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .settings-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-settings-save {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-settings-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-settings-cancel {
+            background: #e9ecef;
+            color: #333;
+            flex: 1;
+        }
+
+        .btn-settings-cancel:hover {
+            background: #dee2e6;
+        }
+
         .checklist {
             list-style: none;
         }
@@ -297,7 +430,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎮 Gaming Checklist</h1>
+        <div class="header">
+            <h1>🎮 Gaming Checklist</h1>
+            <button class="settings-btn" onclick="openSettingsModal()" title="Einstellungen">⚙️</button>
+        </div>
         <ul class="checklist" id="checklist">
             <li class="checklist-item">
                 <input type="checkbox" id="item1">
@@ -411,6 +547,17 @@
             </div>
             <div class="progress-text">
                 <span id="completedCount">0</span> / <span id="totalCount">8</span> abgehakt
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <h2>Einstellungen</h2>
+            <div id="settingsItems"></div>
+            <div class="settings-buttons">
+                <button class="btn-settings-save" onclick="saveSettings()">Speichern</button>
+                <button class="btn-settings-cancel" onclick="closeSettingsModal()">Abbrechen</button>
             </div>
         </div>
     </div>
@@ -553,6 +700,46 @@
             currentItemIndexForModal = null;
         }
 
+        function openSettingsModal() {
+            const settingsItems = document.getElementById('settingsItems');
+            settingsItems.innerHTML = '';
+
+            checkboxes.forEach((checkbox, index) => {
+                const label = checkbox.nextElementSibling.querySelector('label');
+                const itemName = label.textContent;
+                const elapsedSeconds = localStorage.getItem(`item-${index}-elapsed-seconds`) || '0';
+                const elapsedHours = (parseInt(elapsedSeconds) / 3600).toFixed(2);
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'settings-item';
+                itemDiv.innerHTML = `
+                    <label for="settings-item-${index}">${itemName}</label>
+                    <input type="number" id="settings-item-${index}" min="0" step="0.01" value="${elapsedHours}" placeholder="Timer in Stunden">
+                `;
+                settingsItems.appendChild(itemDiv);
+            });
+
+            document.getElementById('settingsModal').classList.add('active');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        function saveSettings() {
+            checkboxes.forEach((checkbox, index) => {
+                const input = document.getElementById(`settings-item-${index}`);
+                if (input && input.value !== '') {
+                    const hours = parseFloat(input.value);
+                    const seconds = Math.round(hours * 3600);
+                    elapsedSeconds[index] = seconds;
+                    localStorage.setItem(`item-${index}-elapsed-seconds`, seconds);
+                    updateTimerDisplay(index);
+                }
+            });
+            closeSettingsModal();
+        }
+
         function confirmTimerTime() {
             if (currentItemIndexForModal !== null) {
                 const seconds = elapsedSeconds[currentItemIndexForModal];
@@ -627,6 +814,13 @@
         timeModal.addEventListener('click', (e) => {
             if (e.target === timeModal) {
                 closeModal();
+            }
+        });
+
+        // Settings-Modal schließen bei Klick außerhalb
+        document.getElementById('settingsModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('settingsModal')) {
+                closeSettingsModal();
             }
         });
 
