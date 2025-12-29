@@ -714,26 +714,40 @@
                 timer.classList.add('challenge-timer-running');
                 localStorage.setItem('challenge-timer-running', 'true');
 
-                if (!timerInterval) {
-                    timerInterval = setInterval(() => {
-                        if (challengeTimerRunning) {
-                            challengeElapsedSeconds++;
-                            updateChallengeTimerDisplay();
-                            if (activeItemIndex !== null && timerRunning) {
-                                elapsedSeconds[activeItemIndex]++;
-                                updateTimerDisplay(activeItemIndex);
-                                localStorage.setItem(`item-${activeItemIndex}-elapsed-seconds`, elapsedSeconds[activeItemIndex]);
-                            }
-                            localStorage.setItem('challenge-timer-seconds', challengeElapsedSeconds);
-                        }
-                    }, 1000);
-                }
+                // Starte den globalen Timer
+                startGlobalTimer();
             } else {
                 btn.textContent = '▶';
                 btn.title = 'Start';
                 timer.classList.remove('challenge-timer-running');
                 localStorage.setItem('challenge-timer-running', 'false');
             }
+        }
+
+        function startGlobalTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            timerInterval = setInterval(() => {
+                if (challengeTimerRunning) {
+                    challengeElapsedSeconds++;
+                    updateChallengeTimerDisplay();
+                    localStorage.setItem('challenge-timer-seconds', challengeElapsedSeconds);
+                }
+                
+                if (timerRunning && activeItemIndex !== null) {
+                    elapsedSeconds[activeItemIndex]++;
+                    updateTimerDisplay(activeItemIndex);
+                    localStorage.setItem(`item-${activeItemIndex}-elapsed-seconds`, elapsedSeconds[activeItemIndex]);
+                }
+                
+                // Stoppe den Interval wenn beide Timer inaktiv sind
+                if (!challengeTimerRunning && !timerRunning) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+            }, 1000);
         }
 
         function resetChallengeTimer() {
@@ -747,6 +761,12 @@
             updateChallengeTimerDisplay();
             localStorage.setItem('challenge-timer-seconds', '0');
             localStorage.setItem('challenge-timer-running', 'false');
+            
+            // Stoppe Interval wenn nötig
+            if (timerInterval && !timerRunning) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
         }
 
         // Starte oder stoppe Timer
@@ -776,15 +796,8 @@
             localStorage.setItem('active-timer-index', index);
             localStorage.setItem('timer-running', 'true');
 
-            if (!timerInterval) {
-                timerInterval = setInterval(() => {
-                    if (timerRunning && activeItemIndex !== null) {
-                        elapsedSeconds[activeItemIndex]++;
-                        updateTimerDisplay(activeItemIndex);
-                        localStorage.setItem(`item-${activeItemIndex}-elapsed-seconds`, elapsedSeconds[activeItemIndex]);
-                    }
-                }, 1000);
-            }
+            // Starte den globalen Timer
+            startGlobalTimer();
         }
 
         // Aktualisiere Timer-Anzeige
@@ -824,6 +837,7 @@
                 btn.textContent = '⏸';
                 btn.title = 'Pause';
                 timer.classList.add('challenge-timer-running');
+                startGlobalTimer();
             }
 
             // Stelle aktiven Timer wieder her
@@ -835,16 +849,7 @@
                 activeItemIndex = index;
                 document.querySelectorAll('.checklist-item')[index].classList.add('active');
                 timerRunning = true;
-
-                if (!timerInterval && !challengeTimerRunning) {
-                    timerInterval = setInterval(() => {
-                        if (timerRunning && activeItemIndex !== null) {
-                            elapsedSeconds[activeItemIndex]++;
-                            updateTimerDisplay(activeItemIndex);
-                            localStorage.setItem(`item-${activeItemIndex}-elapsed-seconds`, elapsedSeconds[activeItemIndex]);
-                        }
-                    }, 1000);
-                }
+                startGlobalTimer();
             }           
         }
 
