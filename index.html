@@ -14,20 +14,40 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: background-image 0.5s ease;
+            position: relative;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .container {
             background: #1a1a1a;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             padding: 40px;
             max-width: 500px;
             width: 100%;
+            position: relative;
+            z-index: 20;
         }
 
         h1 {
@@ -722,6 +742,20 @@
             return (seconds / 3600).toFixed(2);
         }
 
+        // Ändere Body Background basierend auf aktivem Item
+        function updateBodyBackground(index) {
+            const item = document.querySelectorAll('.checklist-item')[index];
+            const backgroundImage = window.getComputedStyle(item).backgroundImage;
+            document.body.style.backgroundImage = backgroundImage;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+        }
+
+        // Setze Body Background zurück auf Gradient
+        function resetBodyBackground() {
+            document.body.style.backgroundImage = 'linear-gradient(135deg, #0891b2 0%, #0e7490 100%)';
+        }
+
         // Challenge Timer Funktionen
         function updateChallengeTimerDisplay() {
             const display = document.getElementById('challengeTimerDisplay');
@@ -803,6 +837,8 @@
                 activeItemIndex = null;
                 localStorage.removeItem('active-timer-index');
                 localStorage.setItem('timer-running', 'false');
+                // Setze Background zurück
+                resetBodyBackground();
                 return;
             }
 
@@ -820,6 +856,9 @@
             // Speichere aktiven Timer
             localStorage.setItem('active-timer-index', index);
             localStorage.setItem('timer-running', 'true');
+
+            // Ändere Body Background
+            updateBodyBackground(index);
 
             // Starte den globalen Timer
             startGlobalTimer();
@@ -998,6 +1037,7 @@
                         activeItemIndex = null;
                         localStorage.removeItem('active-timer-index');
                         localStorage.setItem('timer-running', 'false');
+                        resetBodyBackground();
                     }
 
                     // Zeige Modal mit Bestätigung
