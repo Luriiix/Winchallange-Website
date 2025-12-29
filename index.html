@@ -59,6 +59,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        h1::first-letter {
+            color: #0891b2;
+            -webkit-text-fill-color: #0891b2;
         }
 
         .header {
@@ -212,7 +218,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .checklist-item::before {
@@ -226,6 +232,7 @@
             border-radius: 10px;
             z-index: 0;
             pointer-events: none;
+            overflow: hidden;
         }
 
         .checklist-item > * {
@@ -329,29 +336,32 @@
             position: absolute;
             bottom: 100%;
             right: 0;
-            background: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 13px;
+            background: #0f0f0f;
+            color: #0891b2;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
             white-space: normal;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
             pointer-events: none;
-            z-index: 10;
-            max-width: 150px;
-            line-height: 1.4;
+            z-index: 1000;
+            max-width: 160px;
+            line-height: 1.6;
+            font-weight: 700;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.95), inset 0 0 0 1px #0891b2;
+            border: 2px solid #0891b2;
         }
 
             .tooltip::after {
                 content: '';
                 position: absolute;
                 top: 100%;
-                right: 8px;
-                border: 4px solid transparent;
-                border-top-color: #333;
+                right: 12px;
+                border: 6px solid transparent;
+                border-top-color: #0f0f0f;
             }
 
         .info-icon:hover .tooltip {
