@@ -423,9 +423,90 @@
             color: #333;
         }
 
-            .btn-cancel:hover {
-                background: #dee2e6;
+        .btn-cancel:hover {
+            background: #dee2e6;
+        }
+
+        .challenge-timer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+            z-index: 50;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .challenge-timer-label {
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .challenge-timer-display {
+            font-size: 48px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            line-height: 1;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .challenge-timer-running {
+            /* Animation entfernt */
+        }
+
+        .challenge-timer-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .challenge-timer-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .challenge-timer-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+            .challenge-timer {
+                bottom: 10px;
+                right: 10px;
+                padding: 15px 20px;
+                min-width: 120px;
             }
+
+            .challenge-timer-display {
+                font-size: 36px;
+            }
+
+            .challenge-timer-label {
+                font-size: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -438,7 +519,7 @@
             <li class="checklist-item">
                 <input type="checkbox" id="item1">
                 <div class="checklist-item-content">
-                    <label for="item1">Valo B2B 3h</label>
+                    <label for="item1">Valo B2B</label>
                     <div class="time-info">
                         <span class="timer-display">0:00:00</span>
                         <div class="info-icon">
@@ -451,7 +532,7 @@
             <li class="checklist-item">
                 <input type="checkbox" id="item2">
                 <div class="checklist-item-content">
-                    <label for="item2">LoL B3B 5h</label>
+                    <label for="item2">LoL B3B</label>
                     <div class="time-info">
                         <span class="timer-display">0:00:00</span>
                         <div class="info-icon">
@@ -464,7 +545,7 @@
             <li class="checklist-item">
                 <input type="checkbox" id="item3">
                 <div class="checklist-item-content">
-                    <label for="item3">Paladins B3B 2h</label>
+                    <label for="item3">Paladins B3B</label>
                     <div class="time-info">
                         <span class="timer-display">0:00:00</span>
                         <div class="info-icon">
@@ -477,7 +558,7 @@
             <li class="checklist-item">
                 <input type="checkbox" id="item4">
                 <div class="checklist-item-content">
-                    <label for="item4">Hell let Loose 1 W 2h</label>
+                    <label for="item4">Hell let Loose 1 W</label>
                     <div class="time-info">
                         <span class="timer-display">0:00:00</span>
                         <div class="info-icon">
@@ -490,7 +571,7 @@
             <li class="checklist-item">
                 <input type="checkbox" id="item5">
                 <div class="checklist-item-content">
-                    <label for="item5">Rainbow B2B 4h</label>
+                    <label for="item5">Rainbow B2B</label>
                     <div class="time-info">
                         <span class="timer-display">0:00:00</span>
                         <div class="info-icon">
@@ -503,7 +584,7 @@
             <li class="checklist-item">
                 <input type="checkbox" id="item6">
                 <div class="checklist-item-content">
-                    <label for="item6">Minecraft Enderdrachen ohne sterben 3h</label>
+                    <label for="item6">Minecraft Enderdrachen ohne sterben</label>
                     <div class="time-info">
                         <span class="timer-display">0:00:00</span>
                         <div class="info-icon">
@@ -516,7 +597,7 @@
             <li class="checklist-item">
                 <input type="checkbox" id="item7">
                 <div class="checklist-item-content">
-                    <label for="item7">Are You There Yet 5h</label>
+                    <label for="item7">Are You There Yet</label>
                     <div class="time-info">
                         <span class="timer-display">0:00:00</span>
                         <div class="info-icon">
@@ -529,7 +610,7 @@
             <li class="checklist-item">
                 <input type="checkbox" id="item8">
                 <div class="checklist-item-content">
-                    <label for="item8">Fall Guys 1 Win 2h</label>
+                    <label for="item8">Fall Guys 1 Win</label>
                     <div class="time-info">
                         <span class="timer-display">0:00:00</span>
                         <div class="info-icon">
@@ -548,6 +629,15 @@
             <div class="progress-text">
                 <span id="completedCount">0</span> / <span id="totalCount">8</span> abgehakt
             </div>
+        </div>
+    </div>
+
+    <div class="challenge-timer" id="challengeTimer">
+        <div class="challenge-timer-label">Challenge Timer</div>
+        <div class="challenge-timer-display" id="challengeTimerDisplay">0:00:00</div>
+        <div class="challenge-timer-controls">
+            <button class="challenge-timer-btn" onclick="toggleChallengeTimer()" id="challengeTimerToggleBtn" title="Start/Stop">▶</button>
+            <button class="challenge-timer-btn" onclick="resetChallengeTimer()" title="Reset">↻</button>
         </div>
     </div>
 
@@ -586,6 +676,8 @@
         let timerInterval = null;
         let elapsedSeconds = {};
         let currentItemIndexForModal = null;
+        let challengeElapsedSeconds = 0;
+        let challengeTimerRunning = false;
 
         // Initialisiere Zeittracking
         checkboxes.forEach((checkbox, index) => {
@@ -603,6 +695,58 @@
         // Konvertiere Sekunden zu Dezimalstunden
         function secondsToHours(seconds) {
             return (seconds / 3600).toFixed(2);
+        }
+
+        // Challenge Timer Funktionen
+        function updateChallengeTimerDisplay() {
+            const display = document.getElementById('challengeTimerDisplay');
+            display.textContent = formatTime(challengeElapsedSeconds);
+        }
+
+        function toggleChallengeTimer() {
+            challengeTimerRunning = !challengeTimerRunning;
+            const btn = document.getElementById('challengeTimerToggleBtn');
+            const timer = document.getElementById('challengeTimer');
+
+            if (challengeTimerRunning) {
+                btn.textContent = '⏸';
+                btn.title = 'Pause';
+                timer.classList.add('challenge-timer-running');
+                localStorage.setItem('challenge-timer-running', 'true');
+
+                if (!timerInterval) {
+                    timerInterval = setInterval(() => {
+                        if (challengeTimerRunning) {
+                            challengeElapsedSeconds++;
+                            updateChallengeTimerDisplay();
+                            if (activeItemIndex !== null && timerRunning) {
+                                elapsedSeconds[activeItemIndex]++;
+                                updateTimerDisplay(activeItemIndex);
+                                localStorage.setItem(`item-${activeItemIndex}-elapsed-seconds`, elapsedSeconds[activeItemIndex]);
+                            }
+                            localStorage.setItem('challenge-timer-seconds', challengeElapsedSeconds);
+                        }
+                    }, 1000);
+                }
+            } else {
+                btn.textContent = '▶';
+                btn.title = 'Start';
+                timer.classList.remove('challenge-timer-running');
+                localStorage.setItem('challenge-timer-running', 'false');
+            }
+        }
+
+        function resetChallengeTimer() {
+            challengeElapsedSeconds = 0;
+            challengeTimerRunning = false;
+            const btn = document.getElementById('challengeTimerToggleBtn');
+            const timer = document.getElementById('challengeTimer');
+            btn.textContent = '▶';
+            btn.title = 'Start';
+            timer.classList.remove('challenge-timer-running');
+            updateChallengeTimerDisplay();
+            localStorage.setItem('challenge-timer-seconds', '0');
+            localStorage.setItem('challenge-timer-running', 'false');
         }
 
         // Starte oder stoppe Timer
@@ -664,6 +808,24 @@
                 tooltip.textContent = `Geplant: ${plannedTime}`;
             });
 
+            // Lade Challenge Timer
+            const savedChallengeSeconds = localStorage.getItem('challenge-timer-seconds');
+            const savedChallengeRunning = localStorage.getItem('challenge-timer-running') === 'true';
+
+            if (savedChallengeSeconds) {
+                challengeElapsedSeconds = parseInt(savedChallengeSeconds);
+                updateChallengeTimerDisplay();
+            }
+
+            if (savedChallengeRunning) {
+                challengeTimerRunning = true;
+                const btn = document.getElementById('challengeTimerToggleBtn');
+                const timer = document.getElementById('challengeTimer');
+                btn.textContent = '⏸';
+                btn.title = 'Pause';
+                timer.classList.add('challenge-timer-running');
+            }
+
             // Stelle aktiven Timer wieder her
             const savedActiveIndex = localStorage.getItem('active-timer-index');
             const savedTimerRunning = localStorage.getItem('timer-running') === 'true';
@@ -674,7 +836,7 @@
                 document.querySelectorAll('.checklist-item')[index].classList.add('active');
                 timerRunning = true;
 
-                if (!timerInterval) {
+                if (!timerInterval && !challengeTimerRunning) {
                     timerInterval = setInterval(() => {
                         if (timerRunning && activeItemIndex !== null) {
                             elapsedSeconds[activeItemIndex]++;
@@ -704,6 +866,22 @@
             const settingsItems = document.getElementById('settingsItems');
             settingsItems.innerHTML = '';
 
+            // Challenge Timer Section
+            const challengeSection = document.createElement('div');
+            challengeSection.innerHTML = `
+                <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #667eea;">
+                    <label style="display: block; color: #333; font-weight: 700; margin-bottom: 12px; font-size: 16px;">⏱️ Challenge Timer</label>
+                    <input type="number" id="settings-challenge-timer" min="0" step="0.01" value="${(parseInt(localStorage.getItem('challenge-timer-seconds') || '0') / 3600).toFixed(2)}" placeholder="Zeit in Stunden" style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px;">
+                </div>
+            `;
+            settingsItems.appendChild(challengeSection);
+
+            // Item Timers Section
+            const itemsLabel = document.createElement('div');
+            itemsLabel.style.marginBottom = '15px';
+            itemsLabel.innerHTML = '<div style="color: #333; font-weight: 700; font-size: 16px;">🎮 Item Timer</div>';
+            settingsItems.appendChild(itemsLabel);
+
             checkboxes.forEach((checkbox, index) => {
                 const label = checkbox.nextElementSibling.querySelector('label');
                 const itemName = label.textContent;
@@ -727,6 +905,17 @@
         }
 
         function saveSettings() {
+            // Speichere Challenge Timer
+            const challengeTimerInput = document.getElementById('settings-challenge-timer');
+            if (challengeTimerInput && challengeTimerInput.value !== '') {
+                const hours = parseFloat(challengeTimerInput.value);
+                const seconds = Math.round(hours * 3600);
+                challengeElapsedSeconds = seconds;
+                localStorage.setItem('challenge-timer-seconds', seconds);
+                updateChallengeTimerDisplay();
+            }
+
+            // Speichere Item Timer
             checkboxes.forEach((checkbox, index) => {
                 const input = document.getElementById(`settings-item-${index}`);
                 if (input && input.value !== '') {
