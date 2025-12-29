@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,7 +22,7 @@
         }
 
         .container {
-            background: white;
+            background: #1a1a1a;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             padding: 40px;
@@ -32,10 +32,10 @@
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #ffffff;
             margin-bottom: 30px;
             font-size: 28px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -52,7 +52,7 @@
         .settings-btn {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
             color: white;
             border: none;
             border-radius: 50%;
@@ -62,12 +62,12 @@
             justify-content: center;
             font-size: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 2px 10px rgba(8, 145, 178, 0.3);
         }
 
         .settings-btn:hover {
             transform: rotate(90deg) scale(1.1);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 4px 15px rgba(8, 145, 178, 0.5);
         }
 
         .settings-modal {
@@ -88,7 +88,7 @@
         }
 
         .settings-content {
-            background: white;
+            background: #1a1a1a;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
@@ -99,7 +99,7 @@
         }
 
         .settings-content h2 {
-            color: #333;
+            color: #ffffff;
             margin-bottom: 20px;
             font-size: 22px;
         }
@@ -107,7 +107,7 @@
         .settings-item {
             margin-bottom: 20px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid #333333;
         }
 
         .settings-item:last-child {
@@ -116,7 +116,7 @@
 
         .settings-item label {
             display: block;
-            color: #333;
+            color: #ffffff;
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 14px;
@@ -125,15 +125,17 @@
         .settings-item input[type="number"] {
             width: 100%;
             padding: 10px;
-            border: 2px solid #e9ecef;
+            border: 2px solid #333333;
             border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s ease;
+            background: #2a2a2a;
+            color: #ffffff;
         }
 
         .settings-item input[type="number"]:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #0891b2;
         }
 
         .settings-buttons {
@@ -154,24 +156,24 @@
         }
 
         .btn-settings-save {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
             color: white;
             flex: 1;
         }
 
         .btn-settings-save:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(8, 145, 178, 0.4);
         }
 
         .btn-settings-cancel {
-            background: #e9ecef;
-            color: #333;
+            background: #333333;
+            color: #ffffff;
             flex: 1;
         }
 
         .btn-settings-cancel:hover {
-            background: #dee2e6;
+            background: #444444;
         }
 
         .checklist {
@@ -200,7 +202,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(248, 249, 250, 0.66);
+            background: rgba(26, 26, 26, 0.62);
             border-radius: 10px;
             z-index: 0;
             pointer-events: none;
@@ -216,17 +218,17 @@
         }
 
         .checklist-item.active {
-            background-color: #d4e4ff;
-            border: 2px solid #667eea;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+            background-color: #2a3f3f;
+            border: 2px solid #0891b2;
+            box-shadow: 0 0 10px rgba(8, 145, 178, 0.3);
             transform: translateX(5px);
         }
 
-            .checklist-item input[type="checkbox"] {
+        .checklist-item input[type="checkbox"] {
                 width: 20px;
                 height: 20px;
                 cursor: pointer;
-                accent-color: #667eea;
+                accent-color: #0891b2;
                 margin-right: 15px;
                 flex-shrink: 0;
             }
@@ -243,7 +245,7 @@
                 cursor: pointer;
                 flex-grow: 1;
                 font-size: 16px;
-                color: #333;
+                color: #ffffff;
                 transition: all 0.3s ease;
                 user-select: none;
             }
@@ -262,7 +264,7 @@
 
         .timer-display {
             font-size: 14px;
-            color: #667eea;
+            color: #0891b2;
             font-weight: 600;
             min-width: 50px;
             text-align: right;
@@ -285,8 +287,8 @@
         .info-icon {
             width: 24px;
             height: 24px;
-            background: #667eea;
-            color: white;
+            background: #0891b2;
+            color: #1a1a1a;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -299,7 +301,7 @@
         }
 
             .info-icon:hover {
-                background: #764ba2;
+                background: #0e7490;
                 transform: scale(1.1);
             }
 
@@ -340,13 +342,13 @@
         .progress {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 2px solid #e9ecef;
+            border-top: 2px solid #333333;
         }
 
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #e9ecef;
+            background: #333333;
             border-radius: 10px;
             overflow: hidden;
             margin-bottom: 10px;
@@ -354,14 +356,14 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #0891b2 0%, #0e7490 100%);
             transition: width 0.3s ease;
             width: 0%;
         }
 
         .progress-text {
             text-align: center;
-            color: #666;
+            color: #ffffff;
             font-size: 14px;
             font-weight: 500;
         }
@@ -384,7 +386,7 @@
             }
 
         .modal-content {
-            background: white;
+            background: #1a1a1a;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
@@ -393,7 +395,7 @@
         }
 
             .modal-content h2 {
-                color: #333;
+                color: #ffffff;
                 margin-bottom: 20px;
                 font-size: 20px;
             }
@@ -401,16 +403,18 @@
             .modal-content input[type="number"] {
                 width: 100%;
                 padding: 10px;
-                border: 2px solid #e9ecef;
+                border: 2px solid #333333;
                 border-radius: 8px;
                 font-size: 16px;
                 margin-bottom: 15px;
                 transition: border-color 0.3s ease;
+                background: #2a2a2a;
+                color: #ffffff;
             }
 
-                .modal-content input[type="number"]:focus {
+        .modal-content input[type="number"]:focus {
                     outline: none;
-                    border-color: #667eea;
+                    border-color: #0891b2;
                 }
 
         .modal-buttons {
@@ -430,33 +434,33 @@
             }
 
         .btn-save {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
             color: white;
         }
 
             .btn-save:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+                box-shadow: 0 5px 15px rgba(8, 145, 178, 0.4);
             }
 
         .btn-cancel {
-            background: #e9ecef;
-            color: #333;
+            background: #333333;
+            color: #ffffff;
         }
 
         .btn-cancel:hover {
-            background: #dee2e6;
+            background: #444444;
         }
 
         .challenge-timer {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
             color: white;
             padding: 20px 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 40px rgba(8, 145, 178, 0.4);
             z-index: 50;
             min-width: 150px;
             text-align: center;
@@ -676,7 +680,7 @@
     <div class="modal" id="timeModal">
         <div class="modal-content">
             <h2>Zeit bestätigen</h2>
-            <p id="timerConfirm" style="font-size: 24px; color: #667eea; margin: 20px 0; font-weight: bold; font-family: 'Courier New', monospace;">0:00:00</p>
+            <p id="timerConfirm" style="font-size: 24px; color: #0891b2; margin: 20px 0; font-weight: bold; font-family: 'Courier New', monospace;">0:00:00</p>
             <div class="modal-buttons">
                 <button class="btn-save" onclick="confirmTimerTime()">Bestätigen</button>
                 <button class="btn-cancel" onclick="closeModal()">Abbrechen</button>
@@ -895,9 +899,9 @@
             // Challenge Timer Section
             const challengeSection = document.createElement('div');
             challengeSection.innerHTML = `
-                <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #667eea;">
-                    <label style="display: block; color: #333; font-weight: 700; margin-bottom: 12px; font-size: 16px;">⏱️ Challenge Timer</label>
-                    <input type="number" id="settings-challenge-timer" min="0" step="0.01" value="${(parseInt(localStorage.getItem('challenge-timer-seconds') || '0') / 3600).toFixed(2)}" placeholder="Zeit in Stunden" style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px;">
+                <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #0891b2;">
+                    <label style="display: block; color: #ffffff; font-weight: 700; margin-bottom: 12px; font-size: 16px;">⏱️ Challenge Timer</label>
+                    <input type="number" id="settings-challenge-timer" min="0" step="0.01" value="${(parseInt(localStorage.getItem('challenge-timer-seconds') || '0') / 3600).toFixed(2)}" placeholder="Zeit in Stunden" style="width: 100%; padding: 10px; border: 2px solid #333333; border-radius: 8px; font-size: 16px; background: #2a2a2a; color: #ffffff;">
                 </div>
             `;
             settingsItems.appendChild(challengeSection);
@@ -917,7 +921,7 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'settings-item';
                 itemDiv.innerHTML = `
-                    <label for="settings-item-${index}">${itemName}</label>
+                    <label for="settings-item-${index}" style="color: #ffffff;">${itemName}</label>
                     <input type="number" id="settings-item-${index}" min="0" step="0.01" value="${elapsedHours}" placeholder="Timer in Stunden">
                 `;
                 settingsItems.appendChild(itemDiv);
