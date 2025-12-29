@@ -183,23 +183,44 @@
             align-items: center;
             padding: 15px;
             margin-bottom: 10px;
-            background: #f8f9fa;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             border-radius: 10px;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-            .checklist-item:hover {
-                background: #e9ecef;
-                transform: translateX(5px);
-            }
+        .checklist-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(248, 249, 250, 0.66);
+            border-radius: 10px;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-            .checklist-item.active {
-                background: #d4e4ff;
-                border: 2px solid #667eea;
-                box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
-                transform: translateX(5px);
-            }
+        .checklist-item > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .checklist-item:hover {
+            transform: translateX(5px);
+        }
+
+        .checklist-item.active {
+            background-color: #d4e4ff;
+            border: 2px solid #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+            transform: translateX(5px);
+        }
 
             .checklist-item input[type="checkbox"] {
                 width: 20px;
@@ -516,7 +537,7 @@
             <button class="settings-btn" onclick="openSettingsModal()" title="Einstellungen">⚙️</button>
         </div>
         <ul class="checklist" id="checklist">
-            <li class="checklist-item">
+            <li class="checklist-item" style="background-image: url('Images/Valorant.jpg');">
                 <input type="checkbox" id="item1">
                 <div class="checklist-item-content">
                     <label for="item1">Valo B2B</label>
@@ -529,7 +550,7 @@
                     </div>
                 </div>
             </li>
-            <li class="checklist-item">
+            <li class="checklist-item" style="background-image: url('Images/league');">
                 <input type="checkbox" id="item2">
                 <div class="checklist-item-content">
                     <label for="item2">LoL B3B</label>
@@ -542,7 +563,7 @@
                     </div>
                 </div>
             </li>
-            <li class="checklist-item">
+            <li class="checklist-item" style="background-image: url('Images/paladins.jpg');">
                 <input type="checkbox" id="item3">
                 <div class="checklist-item-content">
                     <label for="item3">Paladins B3B</label>
@@ -555,7 +576,7 @@
                     </div>
                 </div>
             </li>
-            <li class="checklist-item">
+            <li class="checklist-item" style="background-image: url('Images/hell%20let%20loose.jpg');">
                 <input type="checkbox" id="item4">
                 <div class="checklist-item-content">
                     <label for="item4">Hell let Loose 1 W</label>
@@ -568,7 +589,7 @@
                     </div>
                 </div>
             </li>
-            <li class="checklist-item">
+            <li class="checklist-item" style="background-image: url('Images/rainbow%20six%20siege.jpg');">
                 <input type="checkbox" id="item5">
                 <div class="checklist-item-content">
                     <label for="item5">Rainbow B2B</label>
@@ -581,7 +602,7 @@
                     </div>
                 </div>
             </li>
-            <li class="checklist-item">
+            <li class="checklist-item" style="background-image: url('Images/minecraft.jpg');">
                 <input type="checkbox" id="item6">
                 <div class="checklist-item-content">
                     <label for="item6">Minecraft Enderdrachen ohne sterben</label>
@@ -594,7 +615,7 @@
                     </div>
                 </div>
             </li>
-            <li class="checklist-item">
+            <li class="checklist-item" style="background-image: url('Images/RV-There-Yet.jpg');">
                 <input type="checkbox" id="item7">
                 <div class="checklist-item-content">
                     <label for="item7">Are You There Yet</label>
@@ -607,7 +628,7 @@
                     </div>
                 </div>
             </li>
-            <li class="checklist-item">
+            <li class="checklist-item" style="background-image: url('Images/fall-guys.jpg');">
                 <input type="checkbox" id="item8">
                 <div class="checklist-item-content">
                     <label for="item8">Fall Guys 1 Win</label>
